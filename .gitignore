@@ -1,0 +1,10 @@
+# build files
+Victre/breastMass/build/
+Victre/compression/build/
+Victre/generation/build/
+Victre/projection/MC-GPU_v1.5b.x
+Victre/reconstruction/FBP
+Victre/reconstruction/extract_projections_RAW.x
+
+# python runtime
+__pycache__/

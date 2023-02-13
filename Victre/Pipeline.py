@@ -2014,6 +2014,8 @@ class Pipeline:
                 crop["to"][0] = x
                 break
 
+        # lateral crop (y, list index [1]) is not performed
+
         # crop from pectoral muscle towards nipple when the plates start
         for z in range(phantom.shape[1]):
             if(np.any(phantom[crop["to"][0], :, z] == 50)):
@@ -2046,6 +2048,7 @@ class Pipeline:
                       self.arguments_recon["recon_thickness"]).astype(int)
         )
 
+        # centering the y (lateral) position of the source
         self.arguments_mcgpu["source_position"][1] = self.arguments_mcgpu["number_voxels"][1] * \
             self.arguments_mcgpu["voxel_size"][1] / 2
 

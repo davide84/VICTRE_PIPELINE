@@ -13,7 +13,7 @@ parser.add_argument('-f', '--fatness', required=False, action='append', type=flo
 parser.add_argument('-g', '--gpu', required=False, action='store', type=int, choices=[0, 1], default=0, help='GPU index')
 parser.add_argument('--speedup', action='store', type=int, default=1, help='Scaling factor (2 means 1/2 of histories')
 parser.add_argument('--nosim', action='count', default=0, help='Only generate phantoms, no simulations')
-parser.add_argument('-r', '--randomseed', required=False, type=int, default=0, help='First seed to be used in the repeated simulations')
+parser.add_argument('-r', '--randomseed', required=False, type=int, default=1, help='First seed to be used in the repeated simulations')
 parser.add_argument('-n', '--numsims', required=False, type=int, default=1, help='Numer of random repeated simulations')
 parser.add_argument('-p', '--basepath', required=False, default='.', help='Absolute path where to crreate output folders')
 args = parser.parse_args()

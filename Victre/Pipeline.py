@@ -1215,6 +1215,7 @@ class Pipeline:
             #                                                            scaling["meanAdditiveNoise"]) * scaling["conversionFactorDM"])).astype(np.uint16)
         pixel_array = np.iinfo(np.uint16).max * (pixel_array - np.nanmin(
             pixel_array)) / (np.nanmax(pixel_array) - np.nanmin(pixel_array))
+        self.verbosity = False  # turning off progress bar
         bar = progressbar.ProgressBar(
             max_value=pixel_array.shape[0]) if self.verbosity else None
         for s in range(pixel_array.shape[0]):

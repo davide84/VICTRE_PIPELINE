@@ -2188,7 +2188,7 @@ class Pipeline:
                 if " " in data[s[1]]:
                     data[s[1]] = data[s[1]].split(' ')
                     for i in range(len(data[s[1]])):
-                        if data[s[1]][i].replace(".", "").replace("-", "").isnumeric():
+                        if data[s[1]][i].replace(".", "").replace("-", "").replace("e","").isnumeric():
                             if "." in data[s[1]][i]:
                                 data[s[1]][i] = float(data[s[1]][i])
                             else:

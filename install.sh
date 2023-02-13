@@ -2,12 +2,12 @@
 # UNCOMMENT THESE VARIABLES TO INDICATE CUSTOM PATHS FOR THESE LIBRARIES #
 ##########################################################################
 
-# CUDA_INC=/usr/local/cuda/include 
-# CUDA_SAMPLES=/usr/local/cuda/samples/common/inc
+CUDA_INC=/usr/include
+CUDA_SAMPLES=/home/cester/git/mammo/cuda-samples/Common
 # MPI_INCLUDE=/usr/include/openmpi
-# BOOST_INCLUDE=/usr/local/boost/ # route to boost source code
-# BOOST_OPTIONS_LIB=/usr/lib64 # route to libboost_program_options
-# VTK_DIR=/usr/local/VTK-build
+BOOST_OPTIONS_LIB=/usr/lib/x86_64-linux-gnu # route to libboost_program_options
+VTK_DIR=/usr/include/vtk-7.1
+
 
 # ------------------ DO NOT MODIFY --------------------------
 
@@ -44,7 +44,7 @@ check_command () {
 }
 
 
-export C_INCLUDE_PATH=$BOOST_INCLUDE:${C_INCLUDE_PATH}
+export C_INCLUDE_PATH=$BOOST_INCLUDE:${CUDA_SAMPLES}:${C_INCLUDE_PATH}
 export CPLUS_INCLUDE_PATH=${C_INCLUDE_PATH}:${CPLUS_INCLUDE_PATH}
 
 printf "Checking nvcc: \t\t\t"

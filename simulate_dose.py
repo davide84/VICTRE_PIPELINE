@@ -46,7 +46,7 @@ for breast_size in args.size if args.size else VALUES_SIZE:
         params_sim.update(params_simulation[breast_size]['mcgpu'])
         phuid = phantom_uid(breast_size, fatness_pc, params_gen)
 
-        results_folder='{}/results/{}'.format(args.basepath, phuid)
+        results_folder='{}/results-{}x/{}'.format(args.basepath, args.speedup, phuid)
 
         for seed in [args.randomseed + i for i in range(args.numsims)]:
             print('=== Size={}, seed={}, fatness={:.1f}%, mAs={}, thickness={}, speedup={}x\n    dest={}'.format(

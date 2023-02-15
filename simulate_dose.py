@@ -16,6 +16,7 @@ parser.add_argument('--nosim', action='count', default=0, help='Only generate ph
 parser.add_argument('-r', '--randomseed', required=False, type=int, default=1, help='First seed to be used in the repeated simulations')
 parser.add_argument('-n', '--numsims', required=False, type=int, default=1, help='Numer of random repeated simulations')
 parser.add_argument('-p', '--basepath', required=False, default='.', help='Absolute path where to crreate output folders')
+parser.add_argument('-d', '--voxeldose', required=False, action='count', default=0, help='Tally individual voxel dose')
 args = parser.parse_args()
 
 def hash_params(size, fatness, params):
@@ -40,13 +41,10 @@ for breast_size in args.size if args.size else VALUES_SIZE:
         params_gen['surface_a2l'] = params_gen['surface_a1t']
         params_gen['surface_a2r'] = params_gen['surface_a1t']
         params_gen['surface_a3'] = 1.48 * params_gen['surface_a1t']
-        mas = params_simulation[breast_size]['mAs'][fatness_pc]
-        params_sim = {'selected_gpu': args.gpu,
-                      'number_histories': 4e9 * mas / 25.0 * 1.5 * (1/args.speedup), 'tally_voxel_dose': 'NO'}
-        params_sim.update(params_simulation[breast_size]['mcgpu'])
         phuid = phantom_uid(breast_size, fatness_pc, params_gen)
-
         results_folder='{}/results-{}x/{}'.format(args.basepath, args.speedup, phuid)
+
+        mas = params_simulation[breast_size]['mAs'][fatness_pc]
 
         for seed in [args.randomseed + i for i in range(args.numsims)]:
             print('=== Size={}, seed={}, fatness={:.1f}%, mAs={}, thickness={}, speedup={}x\n    dest={}'.format(
@@ -67,6 +65,12 @@ for breast_size in args.size if args.size else VALUES_SIZE:
             # exit if simulation not needed
             if args.nosim:
                 continue
+
+            params_sim = {'selected_gpu': args.gpu,
+                          'output_dose_filename': '{}/{}/roi-dose.dat'.format(results_folder, seed),
+                          'number_histories': 4e9 * mas / 25.0 * 1.5 * (1/args.speedup),
+                          'tally_voxel_dose': 'YES' if args.voxeldose else 'NO'}
+            params_sim.update(params_simulation[breast_size]['mcgpu'])
 
             # linking (cropped) phantom files into simulation folder
             print('Ensuring cropped phantom links into simulation folder...')
